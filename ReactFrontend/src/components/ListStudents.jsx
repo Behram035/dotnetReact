@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
+  // const [deletedStudent, setDeletedStudent] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +22,10 @@ const ListStudents = () => {
   const deleteStudent = async (id) => {
     try {
       await axios.delete(`http://localhost:5299/api/Student/DeleteStudent/${id}`);
-      setStudents(students.filter(student => student.id !== id));   // Update contacts state to remove deleted contact
+      const deletedStudent = students.filter(student => student.id === id);
+      console.log(deletedStudent)
+      setStudents(students.filter(student => student.id !== id)); 
+        
       toast.success('Student Deleted successfully!');
       
     } catch (error) {
